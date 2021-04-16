@@ -17,7 +17,37 @@ var events = {
 
 // add events to localStorage
 var saveEvents = function() {
-    localStorage.setItems("events", JSON.stringify(events));
+    localStorage.setItem("events", JSON.stringify(events));
+};
+
+// loads events from localStorage and create events in correct row
+var loadEvents = function() {
+    var loadedEvents = JSON.parse(localStorage.getItem("events"));
+
+    if (loadedEvents) {
+        events = loadedEvents;
+
+        // for each key/value in events, create an event
+        $.each(events, function(hour, event) {
+            var hourDiv = $("#" + hour);
+            createEvent(hourDiv, event);
+        });
+    }
+
+    //auditEvents();
+}
+
+// create events
+var createEvent = function (eventHour, eventNote) {
+    // create element 
+    var hourDiv = eventHour.find(".event");
+
+    var eventP = $("<p>")
+        .addClass("description")
+        .text(eventNote);
+
+    // append p element to hour div
+    hourDiv.html(eventP);
 };
 
 // ability to create and edit events by clicking on p
@@ -40,17 +70,6 @@ $(".event").on("click", function() {
     textInput.trigger("focus");
 });
 
-// replace textarea element with p element and sends data to localStorage
-var replaceTextarea = function(textAreaEl) {
-    // find out which row/time textarea was edited
-    var eventInfo = textAreaEl.closest(".event-info");
-    var textArea = eventInfo.find("textarea");
-
-    // get the time and event description
-    var hour = eventInfo.attr("id");
-    var event = textArea.val().trim();
-}
-
 // when save button is clicked, new/edited event is updated and sent to localStorage
 $(".saveBtn").click(function() {
     // get textarea's current value
@@ -59,18 +78,16 @@ $(".saveBtn").click(function() {
         .find("textarea")
         .val()
         .trim();
-        console.log("input", textInput);
 
     // get event hour from parent div event-info
     var hour = $(this)
         .closest(".event-info")
         .attr("id");
-        console.log("hour", hour);
 
-    // // add new event description to events array and save events
-    // events[hour].text = textInput;
-    // console.log("events", events);
-    // //saveEvents();
+    // add new event description to events array and save events
+    events[hour] = textInput;
+    console.log("events", events);
+    saveEvents();
     
     // re-create p element
     var eventP = $("<p>")
@@ -81,20 +98,5 @@ $(".saveBtn").click(function() {
     $(this).closest(".event-info").find("textarea").replaceWith(eventP);
 });
 
-// create events
-var createEvent = function (eventHour, eventNote) {
-    // create element 
-    var hourDiv = eventHour.find(".event-info");
-    var eventP = $("<p>")
-        .addClass("description")
-        .text(eventNote);
-
-    // append p element to hour div
-    hourDiv.html(eventP);
-
-    console.log(eventP);
-
-};
-
-
-
+// load event descriptions onto page
+loadEvents();
