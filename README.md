@@ -9,7 +9,7 @@ A simple calendar app that allows users to add important events to a daily plann
 * JavaScript
 
 ## Website
-https://www.akman47.github.io/workday-scheduler
+https://akman47.github.io/workday-scheduler/
 
 ## Snapshot
 ![Shapshot of Work Day Scheduler](./assets/images/workday-scheduler.png)

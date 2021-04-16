@@ -40,7 +40,7 @@ var loadEvents = function() {
 // create events
 var createEvent = function (eventHour, eventNote) {
     // find corresponding hour
-    var hourDiv = eventHour.find(".event");
+    var hourDiv = eventHour.find(".description");
 
     // create p element for event description
     var eventP = $("<p>")
@@ -54,7 +54,7 @@ var createEvent = function (eventHour, eventNote) {
 };
 
 // ability to create and edit events by clicking on p
-$(".event").on("click", function() {
+$(".description").on("click", function() {
     var text = $(this)
         .text()
         .trim();
@@ -62,12 +62,10 @@ $(".event").on("click", function() {
 
     // creates new textarea element
     var textInput = $("<textarea>")
-        .addClass("w-75 form-control description")
+        .addClass("textarea form-control")
         .val(text);
 
-    $(this).replaceWith(textInput);
-
-    console.log("text Input", textInput);
+    $(this).html(textInput);
 
     // highlights the element
     textInput.trigger("focus");
@@ -94,7 +92,7 @@ $(".saveBtn").click(function() {
     
     // re-create p element
     var eventP = $("<p>")
-        .addClass("col-10 event")
+        .addClass("col description")
         .text(textInput);
 
     // replace textarea with p element
@@ -110,26 +108,26 @@ var auditEvents = function() {
     
     // event hour
     $(".event-info").each(function() {
-        var eventHour = $(this).attr("id");
+        var eventHour = parseInt($(this).attr("id"));
 
         // remove old classes
-        $(".event").removeClass("past future present");
+        $(".description").removeClass("past future present");
 
         // apply new class if event hour is past, present, or future
         if(currentHour > eventHour) {
-            $(".event").addClass("past");
+            $(".description").addClass("past");
         }
-        else if (currentHour < eventHour) {
-            $(".event").addClass("future");
+        else if (currentHour === eventHour) {
+            $(".description").addClass("present");
         }
         else {
-            $(".event").addClass("present");
+            $(".description").addClass("future");
         }
     });
 }
 
 // automate auditEvents
-setInterval(auditEvents, 5000);
+//setInterval(auditEvents, 5000);
 
 // load event descriptions onto page
 loadEvents();
