@@ -35,7 +35,7 @@ var loadEvents = function() {
     }
 
     auditEvents();
-}
+};
 
 // create events
 var createEvent = function (eventHour, eventNote) {
@@ -94,7 +94,7 @@ $(".saveBtn").click(function() {
     
     // re-create p element
     var eventP = $("<p>")
-        .addClass("col-10 description")
+        .addClass("col-10 event")
         .text(textInput);
 
     // replace textarea with p element
@@ -127,6 +127,9 @@ var auditEvents = function() {
         }
     });
 }
+
+// automate auditEvents
+setInterval(auditEvents, 5000);
 
 // load event descriptions onto page
 loadEvents();
