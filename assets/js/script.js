@@ -34,17 +34,20 @@ var loadEvents = function() {
         });
     }
 
-    //auditEvents();
+    auditEvents();
 }
 
 // create events
 var createEvent = function (eventHour, eventNote) {
-    // create element 
+    // find corresponding hour
     var hourDiv = eventHour.find(".event");
 
+    // create p element for event description
     var eventP = $("<p>")
         .addClass("description")
         .text(eventNote);
+
+    auditEvents();
 
     // append p element to hour div
     hourDiv.html(eventP);
@@ -96,7 +99,34 @@ $(".saveBtn").click(function() {
 
     // replace textarea with p element
     $(this).closest(".event-info").find("textarea").replaceWith(eventP);
+
+    auditEvents();
 });
+
+// change background of task to reflect agenda's availability
+var auditEvents = function() {
+    // current hour
+    var currentHour = moment().hour();
+    
+    // event hour
+    $(".event-info").each(function() {
+        var eventHour = $(this).attr("id");
+
+        // remove old classes
+        $(".event").removeClass("past future present");
+
+        // apply new class if event hour is past, present, or future
+        if(currentHour > eventHour) {
+            $(".event").addClass("past");
+        }
+        else if (currentHour < eventHour) {
+            $(".event").addClass("future");
+        }
+        else {
+            $(".event").addClass("present");
+        }
+    });
+}
 
 // load event descriptions onto page
 loadEvents();
