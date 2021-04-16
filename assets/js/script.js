@@ -109,19 +109,20 @@ var auditEvents = function() {
     // event hour
     $(".event-info").each(function() {
         var eventHour = parseInt($(this).attr("id"));
+        console.log(typeof currentHour, currentHour, typeof eventHour, eventHour);
 
         // remove old classes
-        $(".description").removeClass("past future present");
+        $(this).removeClass("past future present");
 
         // apply new class if event hour is past, present, or future
         if(currentHour > eventHour) {
-            $(".description").addClass("past");
+            $(this).find(".description").addClass("past");
         }
         else if (currentHour === eventHour) {
-            $(".description").addClass("present");
+            $(this).find(".description").addClass("present");
         }
         else {
-            $(".description").addClass("future");
+            $(this).find(".description").addClass("future");
         }
     });
 }

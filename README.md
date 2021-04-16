@@ -12,7 +12,7 @@ A simple calendar app that allows users to add important events to a daily plann
 https://akman47.github.io/workday-scheduler/
 
 ## Snapshot
-![Shapshot of Work Day Scheduler](./assets/images/workday-scheduler.png)
+![Shapshot of Work Day Scheduler](./assets/images/workday.png)
 
 ## Criteria
 * GIVEN I am using a daily planner to create a schedule
