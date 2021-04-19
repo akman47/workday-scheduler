@@ -13,6 +13,7 @@ textarea{
   padding: 10px;
 }
 
+
 .jumbotron {
   text-align: center;
   background-color: transparent;
@@ -28,6 +29,11 @@ textarea{
 .description{
   white-space: pre-wrap;
   padding-top: 20px;
+}
+
+.description:focus {
+  border-color: #06AED5;
+  border-width: 4px;
 }
 
 .time-block{
@@ -68,6 +74,10 @@ textarea{
   border-bottom-right-radius: 15px;
   background-color: #06AED5;
   color: white;
+}
+
+.saveBtn:hover {
+  size: 110%;
 }
 
 .saveBtn i:hover {

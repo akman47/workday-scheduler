@@ -68,7 +68,7 @@ $(".description").on("click", "textarea", function() {
     $(this).html(text);
 
     // highlights the element
-    textInput.trigger("focus");
+    $(this).trigger("focus");
 });
 
 // when save button is clicked, new/edited event is updated and sent to localStorage
@@ -89,11 +89,6 @@ $(".saveBtn").click(function() {
     events[hour] = textInput;
     console.log("events", events);
     saveEvents();
-    
-    // // re-create p element
-    // var eventP = $("<p>")
-    //     .addClass("description")
-    //     .text(textInput);
 
     // replace textarea with div element containing textInput
     $(this).closest(".event-info").find(".description").html(textInput);
