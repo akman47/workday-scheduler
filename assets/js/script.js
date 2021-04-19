@@ -42,30 +42,30 @@ var createEvent = function (eventHour, eventNote) {
     // find corresponding hour
     var hourDiv = eventHour.find(".description");
 
-    // create p element for event description
-    var eventP = $("<p>")
-        .addClass("description")
-        .text(eventNote);
+    // // create p element for event description
+    // var eventP = $("<p>")
+    //     .addClass("description")
+    //     .text(eventNote);
 
     auditEvents();
 
-    // append p element to hour div
-    hourDiv.html(eventP);
+    // add edited event text to hour div
+    hourDiv.html(eventNote);
 };
 
-// ability to create and edit events by clicking on p
-$(".description").on("click", function() {
+// ability to create and edit events by clicking on textarea
+$(".description").on("click", "textarea", function() {
     var text = $(this)
         .text()
         .trim();
     console.log("text", text);
 
     // creates new textarea element
-    var textInput = $("<textarea>")
-        .addClass("textarea form-control")
-        .val(text);
+    // var textInput = $("<textarea>")
+    //     .addClass("textarea w-100")
+    //     .val(text);
 
-    $(this).html(textInput);
+    $(this).html(text);
 
     // highlights the element
     textInput.trigger("focus");
@@ -90,13 +90,13 @@ $(".saveBtn").click(function() {
     console.log("events", events);
     saveEvents();
     
-    // re-create p element
-    var eventP = $("<p>")
-        .addClass("col description")
-        .text(textInput);
+    // // re-create p element
+    // var eventP = $("<p>")
+    //     .addClass("description")
+    //     .text(textInput);
 
-    // replace textarea with p element
-    $(this).closest(".event-info").find("textarea").replaceWith(eventP);
+    // replace textarea with div element containing textInput
+    $(this).closest(".event-info").find(".description").html(textInput);
 
     auditEvents();
 });
@@ -109,7 +109,6 @@ var auditEvents = function() {
     // event hour
     $(".event-info").each(function() {
         var eventHour = parseInt($(this).attr("id"));
-        console.log(typeof currentHour, currentHour, typeof eventHour, eventHour);
 
         // remove old classes
         $(this).removeClass("past future present");
@@ -128,7 +127,7 @@ var auditEvents = function() {
 }
 
 // automate auditEvents
-//setInterval(auditEvents, 5000);
+setInterval(auditEvents, 5000);
 
 // load event descriptions onto page
 loadEvents();
