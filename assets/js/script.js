@@ -42,11 +42,6 @@ var createEvent = function (eventHour, eventNote) {
     // find corresponding hour
     var hourDiv = eventHour.find(".description");
 
-    // // create p element for event description
-    // var eventP = $("<p>")
-    //     .addClass("description")
-    //     .text(eventNote);
-
     auditEvents();
 
     // add edited event text to hour div
@@ -59,11 +54,6 @@ $(".description").on("click", "textarea", function() {
         .text()
         .trim();
     console.log("text", text);
-
-    // creates new textarea element
-    // var textInput = $("<textarea>")
-    //     .addClass("textarea w-100")
-    //     .val(text);
 
     $(this).html(text);
 
@@ -95,6 +85,16 @@ $(".saveBtn").click(function() {
 
     auditEvents();
 });
+
+// // blur event will trigger when user clicks away from textarea without saving events
+// $(".description").on("blur", function() {
+//     $("textarea").each(function() {
+//         var text = $(this).val().trim();
+//         events = text;
+//         console.log(events);
+//         saveEvents();
+//     });
+// });
 
 // change background of task to reflect agenda's availability
 var auditEvents = function() {
